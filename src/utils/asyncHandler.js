@@ -3,8 +3,6 @@ const asyncHandler = (requestHandeler) => {
         Promise.resolve(requestHandeler(req,res,next)).catch((err) => next(err))
     }
 } 
-
-
 export {asyncHandler}
 
 // try catch

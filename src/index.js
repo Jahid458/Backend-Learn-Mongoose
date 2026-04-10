@@ -17,16 +17,11 @@ connectDB()
     app.on("error", (error) => {
       console.log("ERR: ", error);
       throw error;
-    });
-
-    
+    });    
   })
   .catch((err) => {
     console.log("MongoDB connection failed !!!", err);
   })
-
-
-
 
 /*
 import express from "express";
