@@ -9,24 +9,6 @@ export {asyncHandler}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // try catch
 // const asyncHandler = (fn) => async (req,res,next) => {
 //     try {
