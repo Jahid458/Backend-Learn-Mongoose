@@ -130,33 +130,57 @@ const loginUser = asyncHandler(async (req, res) => {
   );
 
   //   select er kaj hoilo je je firld ami db te chai na tadd korar jonno select use kore kaj korte hoi
-  const loggedInUser = await User.findById(user._id).select("-password -refreshToken");
+  const loggedInUser = await User.findById(user._id).select(
+    "-password -refreshToken"
+  );
 
-  //cookie send korar jonno options design lage 
+  //cookie send korar jonno options design lage
 
   const options = {
-   httpOnly: true, //server theke modify hoi , frontend theke hoi na 
-   secure: true
-  }
+    httpOnly: true, //server theke modify hoi , frontend theke hoi na
+    secure: true,
+  };
 
   return res
-      .status(200)
-      .cookie("accessToken", accessToken, options)
-      .cookie("refreshToken", refreshToken, options)
-      .json(new ApiResponse(200,
-         {
-            user: loggedInUser, accessToken,refreshToken
-         },
-         "User loggedIn Successfully!!"
-      ))
+    .status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(
+      new ApiResponse(
+        200,
+        {
+          user: loggedInUser,
+          accessToken,
+          refreshToken,
+        },
+        "User loggedIn Successfully!!"
+      )
+    );
 });
 
+const logoutUser = asyncHandler(async (req, res) => {
+  await User.findByIdAndUpdate(
+    req.user._id,
+    {
+      $set: {
+        refreshToken: undefined,
+      },
+    },
+    {
+      new: true,
+    }
+  );
 
-const logoutUser = asyncHandler(async(req,res) => {
-      
-})
+  const options = {
+    httpOnly: true, //server theke modify hoi , frontend theke hoi na
+    secure: true,
+  };
 
+  return (
+    res.status(200).clearCookie("accessToken", options),
+    clearCookie("refreshToken", options)
+    .json(ApiResponse(200,{}, "user Logout Succesfully!"))
+  );
+});
 
-
-
-export { registerUser, loginUser };
+export { registerUser, loginUser, logoutUser };
