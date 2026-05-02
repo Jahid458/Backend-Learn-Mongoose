@@ -105,14 +105,21 @@ const loginUser = asyncHandler(async (req, res) => {
 
   const { email, username, password } = req.body;
 
-  if (!email || !username) {
+  if (!email && !username) {
     throw new ApiError(400, "Username or password require");
   }
 
   //   eikhane email ba username hoite pare
+
+
+  // alternative email or username jek ono 1 ta diye login korte parbe , email ba username jek ono 1 ta diye login korte parbe
+  //    if (!(username || emnail)) {
+  //   throw new ApiError(400, "Username or password require");
+  // }
+
   // case email hbe na hoi usename hbe
   const user = await User.findOne({
-    $or: [{ username }, { email }], //email or use name jek ono 1 tya diye mail hbe
+    $or: [{ username }, { email }], //email or user name jek ono 1 tya diye mail hbe
   });
 
   if (!user) {
