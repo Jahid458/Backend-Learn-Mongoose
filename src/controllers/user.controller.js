@@ -400,7 +400,7 @@ const getUserChannelProfile = asyncHandler(async(req,res) => {
 
         {
           $project: {
-            fullName: 1, //projection dimu shb value eksathe dimu 
+            fullName: 1, //projection dimu shb value eksathe dimu apanar kase onk filed aswe tao ja proyon jon oi ta  return korbe
             username: 1,
             subscribersCount: 1,
             ChannelsubscribedToCount: 1,
